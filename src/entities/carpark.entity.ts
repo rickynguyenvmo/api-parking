@@ -1,4 +1,4 @@
-import { ETable } from 'src/common/constant/constant';
+import { ETable } from '../common/constant/constant';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 import { FavoriteList } from './favorite-list.entity';
 

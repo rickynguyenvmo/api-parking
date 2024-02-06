@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { join } from 'path';
-import { CarPark } from 'src/entities/carpark.entity';
-import { getDataFromCsv } from 'src/shared/util';
+import { CarPark } from '../../entities/carpark.entity';
+import { getDataFromCsv } from '../../shared/util';
 import { getExecuteFile } from '../schedule-task/schedule-task.util';
 import { Carpark, ListCarparkResponse, QueryListCarpark } from './carparks.dto';
 import { RawCarparkData } from './carparks.interface';
@@ -11,9 +11,8 @@ import { FindOneOptions } from 'typeorm';
 @Injectable()
 export class CarparkService {
   private readonly logger = new Logger(CarparkService.name);
-
   constructor(private readonly carparkRepo: CarparkRepository) {}
-
+  
   findOneWithCondition(options: FindOneOptions<CarPark>) {
     return this.carparkRepo.findOneWithCondition(options);
   }
@@ -23,11 +22,10 @@ export class CarparkService {
       const folderPath = join(__dirname, '../../../data');
       const file = getExecuteFile(folderPath);
       const filePath = join(folderPath, '/', file);
-
       const data: RawCarparkData[] = await getDataFromCsv(filePath);
+
       const ormData: Partial<CarPark>[] = this.transformRawData(data);
       const listCarparkNo = ormData.map((item) => item.carParkNo);
-
       await this.carparkRepo.initDatabase(ormData, listCarparkNo);
       this.logger.log('Database initialized successfully');
     } catch (error) {
@@ -47,7 +45,6 @@ export class CarparkService {
       const listDeletedCarparkNo = allCarParkNo
         .map((item) => item.carParkNo)
         .filter((carParkNo) => !listUpsertCarparkNo.includes(carParkNo));
-
       await this.carparkRepo.dailySyncUpDatabase(ormData, listDeletedCarparkNo);
       this.logger.log('Database daily sync up completed successfully');
     } catch (error) {
@@ -59,8 +56,8 @@ export class CarparkService {
   async getListCarpark(query: QueryListCarpark) {
     try {
       const [data, total] = await this.carparkRepo.getListCarpark(query);
-
       const transformData = data.map((item) => new Carpark(item));
+
       return new ListCarparkResponse(transformData, total);
     } catch (error) {
       this.logger.error('Error getting carpark list', error);

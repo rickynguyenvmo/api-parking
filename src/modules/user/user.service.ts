@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User } from 'src/entities/user.entity';
+import { User } from '../../entities/user.entity';
 import { FindOneOptions } from 'typeorm';
 import { AuthRegisterResponse } from '../auth/auth.dto';
 import { UserRepository } from './user.repository';

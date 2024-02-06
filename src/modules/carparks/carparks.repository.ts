@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ETable } from 'src/common/constant/constant';
-import { CarPark } from 'src/entities/carpark.entity';
+import { ETable } from '../../common/constant/constant';
+import { CarPark } from '../../entities/carpark.entity';
 import { Brackets, DataSource, FindManyOptions, FindOneOptions, In, Not, Repository } from 'typeorm';
 import { FilterOptions, QueryListCarpark } from './carparks.dto';
 

@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsEnum, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
-import { CarPark } from 'src/entities/carpark.entity';
-import { toNumber } from 'src/shared/util';
+import { CarPark } from '../../entities/carpark.entity';
+import { toNumber } from '../..//shared/util';
 
 
 export enum FilterOptions {

@@ -1,4 +1,4 @@
-import { ETable } from 'src/common/constant/constant';
+import { ETable } from '../common/constant/constant';
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CarPark } from './carpark.entity';
 import { User } from './user.entity';
